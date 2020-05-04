@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import BottomPipe from '../../assets/img/bottom-pipe.png';
 import { connect } from 'react-redux';
 

@@ -7,13 +7,14 @@ import { connect } from 'react-redux';
 import Score from '../Score/Score';
 import GameOver from '../../assets/img/gameover.png';
 import Start from '../../assets/img/start.png';
+// import Restart from '../../assets/img/restart.png';
 
 const Game = ({ fly, start, x, y, checkGameOver, status, pipes }) => {
     const [score, setScore] = useState(0);
 
     useEffect(() => {
         const keyPressHandler = e => {
-            if (e.type == 'mousedown') {
+            if (e.type === 'mousedown') {
                 if (e.keyCode === 32) {
                     fly();
                 }
@@ -33,15 +34,10 @@ const Game = ({ fly, start, x, y, checkGameOver, status, pipes }) => {
             const pipeIndex = Math.floor((167 - x) / 200);
             if (
                 (
-                    133 < x + pipeIndex * 200 + 52 
-                    && 167 > x + pipeIndex * 200
-                ) 
-                && 
-                (
-                    y < pipes[pipeIndex].height 
-                    || y + 24 > pipes[pipeIndex].height + 200
-                )
-                || y > 400
+                    133 < x + pipeIndex * 200 + 52 && 167 > x + pipeIndex * 200
+                ) && (
+                    y < pipes[pipeIndex].height || y + 24 > pipes[pipeIndex].height + 200
+                ) || y > 400
             ) {
                 checkGameOver();
             }
@@ -52,7 +48,7 @@ const Game = ({ fly, start, x, y, checkGameOver, status, pipes }) => {
     }, [x, y]);
 
     useEffect(() => {
-        if (status == 'gameover') {
+        if (status === 'gameover') {
             clearInterval(playing);
         }
     }, [status]);
@@ -66,17 +62,18 @@ const Game = ({ fly, start, x, y, checkGameOver, status, pipes }) => {
             position: 'relative',
             overflow: 'hidden'
         }}>
-            {status != 'initial' && <Score score={score}/>}
-            {status != 'initial' && <Bird />}
-            {status != 'initial' && <Pipe />}
+            {status !== 'initial' && <Score score={score}/>}
+            {status !== 'initial' && <Bird />}
+            {status !== 'initial' && <Pipe />}
             <ForeGround />   
             <img 
+                // onClick={start}
                 style={{
                     position: 'absolute',
                     top: 256,
                     left: 144,
                     transform: 'translate(-50%, -70%)'
-                }} src={status == 'initial' ? Start : status == 'gameover' ? GameOver : null}/>
+                }} src={status === 'initial' ? Start : status === 'gameover' ? GameOver : null}/>
         </div>
     )
 };
@@ -90,7 +87,7 @@ const checkGameOver = () => {
 const fly = () => {
     return (dispatch, getState) => {
         const { status } = getState().game;
-        if (status != 'gameover') {
+        if (status !== 'gameover') {
             dispatch({ type: 'FLY' });
         }
     };
@@ -102,14 +99,14 @@ const start = () => {
     return (dispatch, getState) => {
         const { status } = getState().game;
 
-        if (status == 'initial') {
+        if (status === 'initial') {
             playing = setInterval(() => {
                 dispatch({ type: 'FALL' });
                 dispatch({ type: 'RUNNING' });
             }, 100);
             dispatch({ type: 'START' });
-        } else if (status == 'gameover') {
-            dispatch({ type: 'RESTART' })
+        } else if (status === 'gameover') {
+            dispatch({ type: 'RESTART' });
         }
     };
 };

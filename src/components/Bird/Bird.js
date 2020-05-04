@@ -8,10 +8,11 @@ const Bird = ({ y, rotate }) => (
         height: 24,
         position: 'absolute',
         top: y,
-        left: 150,
-        transform: `translate(-50%, -50%) rotate(${rotate}deg)`,
+        left: 133,
+        transform: `rotate(${rotate}deg)`,
         background: `url(${BirdImg})`,
         transition: 'all 200ms ease',
+        zIndex: 3
     }}></div>
 );
 

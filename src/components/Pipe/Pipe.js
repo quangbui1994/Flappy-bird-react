@@ -1,13 +1,18 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import BottomPipe from '../../assets/img/bottom-pipe.png';
 import { connect } from 'react-redux';
+import { useEffect } from 'react';
+import { useRef } from 'react';
 
 const Pipe = ({ x, pipes }) => {
+    const pipeRef = useRef();
+    
     return (
         <div style={{ position: 'relative', top: 0, height: '100%' }}>
             {
                 pipes.map((pipe, i) => (
-                    <li key={i} style={{listStyle: 'none'}}>
+                    <li ref={pipeRef} key={i} style={{listStyle: 'none'}}>
                         <div style={{
                             width: 52,
                             height: pipe.height,

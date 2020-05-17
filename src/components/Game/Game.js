@@ -10,7 +10,11 @@ import Start from '../../assets/img/start.png';
 // import Restart from '../../assets/img/restart.png';
 
 const Game = ({ fly, start, x, y, checkGameOver, status, pipes }) => {
-    const [score, setScore] = useState(0);
+    const [score, setScore] = useState(null);
+
+    if (status === 'initial' && score !== 0) {
+        setScore(0);
+    }
 
     useEffect(() => {
         const keyPressHandler = e => {
